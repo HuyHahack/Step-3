@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đợi 5 Bước - CGH MÃI ĐỈNH</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #121212;
+            color: white;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #ffcc00;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+        .timer {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        .btn {
+            padding: 10px 20px;
+            font-size: 18px;
+            color: white;
+            background: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn:disabled {
+            background: gray;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <h1>CGH MÃI ĐỈNH</h1>
+    <div class="container">
+        <p>Bước <span id="step">1</span>/5</p>
+        <p class="timer">Vui lòng đợi <span id="countdown">1</span> giây...</p>
+        <button class="btn" id="nextBtn" disabled>Tiếp theo</button>
+    </div>
+
+    <script>
+        let steps = [3, 6, 9, 12, 15]; // Thời gian đếm ngược cho từng bước
+        let currentStep = 0;
+        let countdownElement = document.getElementById("countdown");
+        let stepElement = document.getElementById("step");
+        let nextBtn = document.getElementById("nextBtn");
+
+        function startCountdown(seconds) {
+            let remaining = seconds;
+            countdownElement.innerText = remaining;
+            nextBtn.disabled = true;
+
+            let countdownInterval = setInterval(() => {
+                remaining--;
+                countdownElement.innerText = remaining;
+
+                if (remaining <= 0) {
+                    clearInterval(countdownInterval);
+                    nextBtn.disabled = false;
+                }
+            }, 1000);
+        }
+
+        nextBtn.addEventListener("click", () => {
+            currentStep++;
+            if (currentStep < steps.length) {
+                stepElement.innerText = currentStep + 1;
+                startCountdown(steps[currentStep]);
+            } else {
+                window.location.href = "https://google.com"; // Thay link cần chuyển hướng vào đây
+            }
+        });
+
+        // Bắt đầu bước đầu tiên
+        startCountdown(steps[0]);
+    </script>
+</body>
+</html>
